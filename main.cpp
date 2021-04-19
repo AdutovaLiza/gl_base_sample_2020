@@ -218,13 +218,7 @@ void doCameraMovement(Camera &camera, GLfloat deltaTime)
 
 GLsizei CreatePlane(GLuint& vao)
 {
-    //vector<float> vertices = {
-    //    // координаты        // текстурные координаты
-    //    0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // верхняя правая вершина
-    //    0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // нижняя правая вершина
-    //   -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // нижняя левая вершина
-    //   -0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // верхняя левая вершина
-    //};
+    
     std::vector<float> vertices = { 0.5f, 0.0f, 0.5f, 1.0f,
                                  0.5f, 0.0f,-0.5f, 1.0f,
                                 -0.5f, 0.0f,-0.5f, 1.0f,
@@ -366,9 +360,6 @@ GLsizei CreateCylinder(GLuint& vao, int numberSlices)
     float height = 0.5f;
     float degree = 360 / numberSlices;
 
-    //std::vector<float> vertice = { 0.0f, 2.0f, 0.0f, 1.0f};
-
-    //std::vector<float> points(numberSlices);
     std::vector<float> points = { 0.0f, 0.0f, 0.0f, 1.0f,    // нижний центр
                                   0.0f, 0.5f, 0.0f, 0.5f };  // верхний центр
 
@@ -475,9 +466,6 @@ GLsizei CreateCone(GLuint& vao, int numberSlices)
     float radius = 1.0f;
     float degree = 360 / numberSlices;
 
-    //std::vector<float> vertice = { 0.0f, 2.0f, 0.0f, 1.0f};
-
-    //std::vector<float> points(numberSlices);
     std::vector<float> points = { 0.0f, 0.0f, 0.0f, 1.0f,
                                   0.0f, 2.0f, 0.0f, 1.0f };
 
@@ -679,13 +667,13 @@ int main(int argc, char** argv)
 
     GLuint vaoSphere;
     float radius = 1.0f;
-    GLsizei sphereIndices = CreateSphere(radius, 8, vaoSphere);
+    GLsizei sphereIndices = CreateSphere(radius, 20, vaoSphere);
 
     GLuint vaoCone;
     GLsizei coneIndices = CreateCone(vaoCone, 20);
 
     GLuint vaoCylinder;
-    GLsizei cylinderIndices = CreateCylinder(vaoCylinder, 30);
+    GLsizei cylinderIndices = CreateCylinder(vaoCylinder, 40);
 
     GLuint vaoCube;
     GLsizei cubeIndices = CreateCube(vaoCube);
@@ -796,6 +784,10 @@ int main(int argc, char** argv)
         {
             float4x4 model;
             model = transpose(mul(translate4x4(float3(0.0f, 0.0f, 0.0f)), scale4x4(float3(0.1f, 6.0f, 0.1f))));
+            lambert.SetUniform("model", model); GL_CHECK_ERRORS;
+            glDrawElements(GL_TRIANGLE_STRIP, cylinderIndices, GL_UNSIGNED_INT, nullptr); GL_CHECK_ERRORS;
+
+            model = transpose(mul(translate4x4(float3(5.0f, 0.0f, 10.0f)), scale4x4(float3(0.5f, 10.0f, 0.5f))));
             lambert.SetUniform("model", model); GL_CHECK_ERRORS;
             glDrawElements(GL_TRIANGLE_STRIP, cylinderIndices, GL_UNSIGNED_INT, nullptr); GL_CHECK_ERRORS;
 

@@ -14,7 +14,7 @@ vec3 lightDir3 = vec3(0.0f, 1.0f, 1.0f);
 vec3 lightColor1 = vec3(0.64f, 1.0f, 1.0f);
 vec3 lightColor2 = vec3(1.0f, 0.56f, 0.001f);
 vec3 lightColor3 = vec3(1.0f, 1.0f, 1.0f);
-vec3 base_color = vec3(0.1f, 0.6f, 0.15f);
+vec3 base_color = vec3(0.5f, 0.0f, 0.15f);
 vec4 color1 = vec4(abs(dot(vNormal, lightDir1)) * lightColor1,
 1.0f);
 vec4 color2 = vec4(abs(dot(vNormal, lightDir2)) * lightColor2,
